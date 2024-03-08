@@ -120,3 +120,12 @@ sows = [
 
 #println(sows)
 ```
+
+Calculate NPV for each SOW for each policy (IN PROGRESS!):
+
+
+```{julia}
+n_levels = 2:12
+policies = [StaticPolicy(i) for i in n_levels]
+
+```
