@@ -149,16 +149,5 @@ plot(
         marker=:circle,
         xticks=n_levels,
     )
-    hline!([0])plot(
-        n_levels,
-        profits;
-        ylabel="NPV Profits [Million USD]",
-        xlabel="Number of levels",
-        legend=false,
-        title="$(sow.n_years) Year Horizon, $(sow.discount_rate) Discount, $(sow.demand_growth_rate) Demand Growth",
-        size=(800, 400),
-        marker=:circle,
-        xticks=n_levels,
-    )
     hline!([0])
 ```
