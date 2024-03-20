@@ -153,13 +153,45 @@ end
 
 ```
 
+Now lets look at NPF for adaptive policies, given a static SOW:
 
 
-Now lets look at NPV for adaptive policies:
 
-```{Julia}
+Now lets look at NPV for adaptive policies, given different SOWs:
 
+```{julia}
+
+let 
+
+    n_levels = 1:12
+    policies = [AdaptivePolicy(i) for i in n_levels]
+
+    profits = []
+    for policy in policies
+        #println(sow)
+        profits_list = [simulate(sow, policy) for sow in sows] 
+        #println(profits_list)
+        average_profit = mean(profits_list) #average profit for that policy given all SOWs
+        push!(profits, average_profit)
+    end
+
+    plot(
+        n_levels,
+        profits;
+        ylabel="Average NPV Profits [Million USD]",
+        xlabel="Number of levels",
+        legend=false,
+        title="Varying Demand Growth, Average profits for Adaptive Policy",
+        size=(800, 400),
+        marker=:circle,
+        xticks=n_levels,
+    )
+    hline!([0])
+
+
+end
 
 
 
 ```
+
