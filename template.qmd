@@ -120,38 +120,8 @@ sows = [
 Calculate NPV for each SOW for each policy:
 
 ```{julia}
-n_levels = 2:12
-policies = [StaticPolicy(i) for i in n_levels]
-```
-
-```{julia}
-
-n_levels = 2:12
-policies = [StaticPolicy(i) for i in n_levels]
-
-profits = []
-for policy in policies
-    #println(sow)
-    profits_list = [simulate(sow, policy) for sow in sows] 
-    #println(profits_list)
-    average_profit = mean(profits_list) #average profit for that policy given all SOWs
-    push!(profits, average_profit)
-end
-
-
-```
-
-
-
-```{julia}
 
 let 
-    n_sow = 10
-
-    sows = [
-    ParkingGarageSOW(; demand_growth_rate=Gen_Growth(), n_years=Gen_Years(), discount_rate=Gen_Rates())
-    for _ in 1:n_sow
-    ]
 
     n_levels = 2:12
     policies = [StaticPolicy(i) for i in n_levels]
@@ -183,20 +153,7 @@ end
 
 ```
 
-```{julia}
-plot(
-        n_levels,
-        profits;
-        ylabel="Average NPV Profits [Million USD]",
-        xlabel="Number of levels",
-        legend=false,
-        title="20 Year Horizon, 0.05 Discount, Varying Demand Growth, Average profits",
-        size=(800, 400),
-        marker=:circle,
-        xticks=n_levels,
-    )
-    hline!([0])
-```
+
 
 Now lets look at NPV for adaptive policies:
 
