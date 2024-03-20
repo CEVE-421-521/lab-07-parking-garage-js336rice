@@ -39,6 +39,7 @@ and also regular packages
 
 ```{julia}
 using Plots
+using Statistics
 Plots.default(; margin=5Plots.mm)
 ```
 
@@ -108,11 +109,6 @@ end
 
 n_sow = 10
 
-# sows = [
-#     SOW(rand(slr_scenarios), draw_surge_distribution(), draw_discount_rate()) for
-#     _ in 1:N_SOW
-# ]
-
 sows = [
     ParkingGarageSOW(; demand_growth_rate=Gen_Growth(), n_years=Gen_Years(), discount_rate=Gen_Rates())
     for _ in 1:n_sow
@@ -128,4 +124,32 @@ Calculate NPV for each SOW for each policy (IN PROGRESS!):
 n_levels = 2:12
 policies = [StaticPolicy(i) for i in n_levels]
 
+profits = []
+for policy in policies
+    #println(sow)
+    profits_list = [simulate(sow, policy) for sow in sows] 
+    #println(profits_list)
+    average_profit = mean(profits_list) #average profit for that policy given all SOWs
+    push!(profits, average_profit)
+end
+
+#println(profits)
+
+```
+
+```{julia}
+plot(
+        n_levels,
+        profits;
+        ylabel="Average NPV Profits [Million USD]",
+        xlabel="Number of levels",
+        legend=false,
+        title="20 Year Horizon, 0.05 Discount, Varying Demand Growth, Average profits",
+        size=(800, 400),
+        marker=:circle,
+        xticks=n_levels,
+    )
+    hline!([0])
+
+#Testing testing testing
 ```
