@@ -37,7 +37,7 @@ function get_action(x::ParkingGarageState, policy::AdaptivePolicy)
     if x.year == 1
         return ParkingGarageAction(policy.n_levels_init)
     else
-        if x.demand <= calculate_capacity(x)  #If demand is greater than or equal to capacity 
+        if x.demand >= calculate_capacity(x)  #If demand is greater than or equal to capacity 
             return ParkingGarageAction(1) #Add a level to our parking garage
         else
             return ParkingGarageAction(0) #If demand does not outstrip supply, do nothing. 
