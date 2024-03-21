@@ -95,7 +95,7 @@ function Gen_Years()
 end 
 
 function Gen_Rates()
-    Discount_rate = 0.05
+    Discount_rate = 0.12
     return Discount_rate
 end 
 
@@ -107,7 +107,7 @@ end
 
 ```{julia}
 
-n_sow = 10
+n_sow = 50
 
 sows = [
     ParkingGarageSOW(; demand_growth_rate=Gen_Growth(), n_years=Gen_Years(), discount_rate=Gen_Rates())
@@ -141,7 +141,7 @@ let
         ylabel="Average NPV Profits [Million USD]",
         xlabel="Number of levels",
         legend=false,
-        title="20 Year Horizon, 0.05 Discount, Varying Demand Growth, Average profits",
+        title="20 Year Horizon, 0.12 Discount, Varying Demand Growth, Average profits",
         size=(800, 400),
         marker=:circle,
         xticks=n_levels,
@@ -155,7 +155,26 @@ end
 
 Now lets look at NPF for adaptive policies, given a static SOW:
 
-
+```{julia}
+let
+    sow = ParkingGarageSOW(; demand_growth_rate=80.0, n_years=20, discount_rate=0.12)
+    n_levels = 1:12
+    policies = [AdaptivePolicy(i) for i in n_levels]
+    profits = [simulate(sow, policy) for policy in policies]
+    plot(
+        n_levels,
+        profits;
+        ylabel="NPV Profits [Million USD]",
+        xlabel="Number of levels",
+        legend=false,
+        title="Adaptive Policy, $(sow.n_years) Year Horizon, $(sow.discount_rate) Discount, $(sow.demand_growth_rate) Demand Growth",
+        size=(800, 400),
+        marker=:circle,
+        xticks=n_levels,
+    )
+    hline!([0])
+end
+```
 
 Now lets look at NPV for adaptive policies, given different SOWs:
 
@@ -190,8 +209,5 @@ let
 
 
 end
-
-
-
 ```
 
