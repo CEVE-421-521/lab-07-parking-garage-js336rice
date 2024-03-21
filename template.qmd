@@ -10,18 +10,18 @@ format:
 
     # YOU DO NOT NEED BOTH PDF AND DOCX.
     # COMMENT OR DELETE THE ONE YOU DON'T WANT TO USE.
-    pdf:
-        documentclass: article
-        fontsize: 11pt
-        geometry:
-            - margin=1in  
+    #pdf:
+    #    documentclass: article
+    #    fontsize: 11pt
+    #    geometry:
+    #        - margin=1in  
+    #    number-sections: true
+    #    code-line-numbers: true
+    docx: 
+        toc: true
+        fig-format: png
         number-sections: true
         code-line-numbers: true
-    #docx: 
-    #    toc: true
-    #    fig-format: png
-    #    number-sections: true
-    #`    code-line-numbers: true
 
 date-format: "ddd., MMM. D"
 references: references.bib
@@ -145,7 +145,7 @@ let
         ylabel="Average NPV Profits [Million USD]",
         xlabel="Number of levels",
         legend=false,
-        title="Varying Demand Growth, Average Profits for Static Policy",
+        title="With Variance, Average Profits for Static Policy",
         size=(800, 400),
         marker=:circle,
         xticks=n_levels,
@@ -204,7 +204,7 @@ let
         ylabel="Average NPV Profits [Million USD]",
         xlabel="Number of levels",
         legend=false,
-        title="Varying Demand Growth, Average profits for Adaptive Policy",
+        title="With Variance, Average profits for Adaptive Policy",
         size=(800, 400),
         marker=:circle,
         xticks=n_levels,
