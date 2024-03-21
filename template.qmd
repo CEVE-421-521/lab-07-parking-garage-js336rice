@@ -89,13 +89,17 @@ Generate states of the world:
 
 ```{julia}
 
+#Keeping this constant since it's usually constant in buisiness analysis, we 
+#want to look at some reasonable time horizon that we hope to get a return by.
 function Gen_Years()
     years = 20 
     return years 
 end 
 
+#Keeping this centered around 0.12 to keep it comparable to the previous graph,
+#But we'll add some uncertainty anyways incase it does something interesting.
 function Gen_Rates()
-    Discount_rate = 0.12
+    Discount_rate = rand(Normal(0.12, 0.01))
     return Discount_rate
 end 
 
@@ -141,7 +145,7 @@ let
         ylabel="Average NPV Profits [Million USD]",
         xlabel="Number of levels",
         legend=false,
-        title="20 Year Horizon, 0.12 Discount, Varying Demand Growth, Average profits",
+        title="Varying Demand Growth, Average Profits for Static Policy",
         size=(800, 400),
         marker=:circle,
         xticks=n_levels,
